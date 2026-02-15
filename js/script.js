@@ -1,74 +1,97 @@
-// --- DATA ---
+// --- DATA: ضرایب دقیق طبق درخواست ---
 const COEFFICIENTS = {
+    // 1. ریاضی فیزیک
     math: {
         '12': [
             { name: 'فارسی ۳', coeff: 11.09 }, { name: 'عربی ۳', coeff: 4.64 },
-            { name: 'دین و زندگی ۳', coeff: 8.47 }, { name: 'زبان انگلیسی ۳', coeff: 6.05 },
+            { name: 'دین و زندگی ۳', coeff: 8.47 }, { name: 'زبان خارجی ۳', coeff: 6.05 },
             { name: 'سلامت و بهداشت', coeff: 1.76 }, { name: 'علوم اجتماعی', coeff: 1.31 },
             { name: 'حسابان ۲', coeff: 8.17 }, { name: 'هندسه ۳', coeff: 5.49 },
             { name: 'ریاضیات گسسته', coeff: 4.71 }, { name: 'فیزیک ۳', coeff: 9.26 },
             { name: 'شیمی ۳', coeff: 10.70 }
         ],
         '11': [
-            // لیست اصلاح شده طبق کد اولیه شما
-            { name: 'فارسی ۲', coeff: 5.95 }, 
-            { name: 'عربی ۲', coeff: 2.62 }, 
-            { name: 'دین و زندگی ۲', coeff: 4.78 },
-            { name: 'زبان انگلیسی ۲', coeff: 3.32 }, 
-            { name: 'هندسه ۲', coeff: 5.10 }, 
-            { name: 'فیزیک ۲', coeff: 6.57 },
-            { name: 'حسابان ۱', coeff: 5.20 },
-            { name: 'شیمی ۲', coeff: 5.27 }
+            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'عربی ۲', coeff: 2.62 },
+            { name: 'دین و زندگی ۲', coeff: 4.78 }, { name: 'زبان خارجی ۲', coeff: 3.32 },
+            { name: 'هندسه ۲', coeff: 5.10 }, { name: 'فیزیک ۲', coeff: 6.57 }
         ]
     },
+    // 2. علوم تجربی
     experimental: {
         '12': [
             { name: 'فارسی ۳', coeff: 11.09 }, { name: 'عربی ۳', coeff: 4.64 },
-            { name: 'دین و زندگی ۳', coeff: 8.47 }, { name: 'زبان انگلیسی ۳', coeff: 6.05 },
+            { name: 'دین و زندگی ۳', coeff: 8.47 }, { name: 'زبان خارجی ۳', coeff: 6.05 },
             { name: 'سلامت و بهداشت', coeff: 1.76 }, { name: 'علوم اجتماعی', coeff: 1.31 },
-            { name: 'ریاضی ۳', coeff: 10.04 }, { name: 'زیست شناسی ۳', coeff: 10.66 },
+            { name: 'ریاضی ۳', coeff: 10.04 }, { name: 'زیست‌شناسی ۳', coeff: 10.66 },
             { name: 'فیزیک ۳', coeff: 8.45 }, { name: 'شیمی ۳', coeff: 9.19 }
         ],
         '11': [
-            // لیست اصلاح شده طبق کد اولیه شما
-            { name: 'فارسی ۲', coeff: 5.95 }, 
-            { name: 'عربی ۲', coeff: 2.62 }, 
-            { name: 'دین و زندگی ۲', coeff: 4.78 },
-            { name: 'زبان انگلیسی ۲', coeff: 3.32 }, 
-            { name: 'زیست شناسی ۲', coeff: 6.39 }, 
-            { name: 'شیمی ۲', coeff: 5.27 },
-            { name: 'ریاضی ۲', coeff: 5.00 }, 
-            { name: 'فیزیک ۲', coeff: 5.00 }
+            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'عربی ۲', coeff: 2.62 },
+            { name: 'دین و زندگی ۲', coeff: 4.78 }, { name: 'زبان خارجی ۲', coeff: 3.32 },
+            { name: 'زیست‌شناسی ۲', coeff: 6.39 }, { name: 'شیمی ۲', coeff: 5.27 }
         ]
     },
+    // 3. علوم انسانی
     humanities: {
         '12': [
             { name: 'فارسی ۳', coeff: 11.09 }, { name: 'دین و زندگی ۳', coeff: 8.47 },
-            { name: 'زبان انگلیسی ۳', coeff: 6.05 }, { name: 'سلامت و بهداشت', coeff: 1.76 },
+            { name: 'زبان خارجی ۳', coeff: 6.05 }, { name: 'سلامت و بهداشت', coeff: 1.76 },
             { name: 'ریاضی و آمار ۳', coeff: 7.71 }, { name: 'علوم و فنون ادبی ۳', coeff: 8.68 },
-            { name: 'عربی ۳', coeff: 4.30 }, { name: 'تاریخ ۳', coeff: 5.38 },
-            { name: 'جغرافیا ۳', coeff: 7.71 }, { name: 'جامعه شناسی ۳', coeff: 4.96 },
+            { name: 'عربی ۳ تخصصی', coeff: 4.30 }, { name: 'تاریخ ۳', coeff: 5.38 },
+            { name: 'جغرافیا ۳', coeff: 7.71 }, { name: 'جامعه‌شناسی ۳', coeff: 4.96 },
             { name: 'فلسفه ۲', coeff: 5.55 }
         ],
         '11': [
-            // لیست اصلاح شده طبق کد اولیه شما
-            { name: 'فارسی ۲', coeff: 5.95 }, 
-            { name: 'دین و زندگی ۲', coeff: 4.78 }, 
-            { name: 'زبان انگلیسی ۲', coeff: 3.32 },
-            { name: 'عربی ۲', coeff: 4.23 }, 
-            { name: 'تاریخ ۲', coeff: 5.24 }, 
-            { name: 'جامعه شناسی ۲', coeff: 4.82 },
-            { name: 'ریاضی و آمار ۲', coeff: 4.00 },
-            { name: 'علوم و فنون ادبی ۲', coeff: 4.50 }
+            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'دین و زندگی ۲', coeff: 4.78 },
+            { name: 'زبان خارجی ۲', coeff: 3.32 }, { name: 'عربی ۲ تخصصی', coeff: 4.23 },
+            { name: 'تاریخ ۲', coeff: 5.24 }, { name: 'جامعه‌شناسی ۲', coeff: 4.82 }
+        ]
+    },
+    // 4. علوم و معارف اسلامی (جدید)
+    maaref: {
+        '12': [
+            { name: 'فارسی ۳', coeff: 11.09 }, { name: 'اصول عقاید ۳', coeff: 8.47 },
+            { name: 'زبان خارجی ۳', coeff: 6.05 }, { name: 'سلامت و بهداشت', coeff: 1.76 },
+            { name: 'ریاضی و آمار ۳', coeff: 7.12 }, { name: 'علوم و فنون ادبی ۳', coeff: 10.35 },
+            { name: 'عربی ۳ تخصصی', coeff: 6.24 }, { name: 'تاریخ ۳ تخصصی', coeff: 4.46 },
+            { name: 'احکام ۳', coeff: 4.77 }, { name: 'علوم و معارف قرآنی ۳', coeff: 4.55 },
+            { name: 'فلسفه ۲', coeff: 6.80 }
+        ],
+        '11': [
+            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'اصول عقاید ۲', coeff: 4.78 },
+            { name: 'زبان خارجی ۲', coeff: 3.32 }, { name: 'عربی ۲ تخصصی', coeff: 5.75 },
+            { name: 'تاریخ ۲ تخصصی', coeff: 3.94 }, { name: 'علوم و معارف قرآنی ۲', coeff: 4.59 }
+        ]
+    },
+    // 5. هنر (جدید)
+    art: {
+        '12': [
+            { name: 'فارسی ۳', coeff: 11.55 }, { name: 'عربی ۳', coeff: 4.83 },
+            { name: 'دین و زندگی ۳', coeff: 8.82 }, { name: 'زبان خارجی ۳', coeff: 6.30 },
+            { name: 'سلامت و بهداشت', coeff: 1.83 }
+        ],
+        '11': [
+            { name: 'فارسی ۲', coeff: 5.61 }, { name: 'عربی ۲', coeff: 2.94 },
+            { name: 'دین و زندگی ۲', coeff: 4.29 }, { name: 'زبان خارجی ۲', coeff: 3.83 }
+        ]
+    },
+    // 6. زبان (همانند هنر)
+    language: {
+        '12': [
+            { name: 'فارسی ۳', coeff: 11.55 }, { name: 'عربی ۳', coeff: 4.83 },
+            { name: 'دین و زندگی ۳', coeff: 8.82 }, { name: 'زبان خارجی ۳', coeff: 6.30 },
+            { name: 'سلامت و بهداشت', coeff: 1.83 }
+        ],
+        '11': [
+            { name: 'فارسی ۲', coeff: 5.61 }, { name: 'عربی ۲', coeff: 2.94 },
+            { name: 'دین و زندگی ۲', coeff: 4.29 }, { name: 'زبان خارجی ۲', coeff: 3.83 }
         ]
     }
 };
 
-const WEIGHTS = { '11': 0.17, '12': 0.63 };
-
 // --- STATE ---
 let state = {
-    step: 0,
+    page: 'home', // home, contact, gpa-intro, major, grade, calc, result
     major: null,
     grade: null,
     scores: {}
@@ -77,31 +100,32 @@ let state = {
 // --- DOM ELEMENTS ---
 const app = document.getElementById('app');
 const backBtn = document.getElementById('back-btn');
+const pageTitle = document.getElementById('page-title');
 const progressBar = document.getElementById('progress-bar');
 const themeToggle = document.getElementById('theme-toggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
 
 // --- INITIALIZATION ---
 function init() {
-    // 1. Theme Initialization
+    // 1. Theme
     const storedTheme = localStorage.getItem('theme');
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = storedTheme === 'dark' || (!storedTheme && systemDark);
-    
     applyTheme(isDark);
 
-    // 2. Load State
+    // 2. Load State (Optional persistence)
     const savedState = localStorage.getItem('gpaState');
     if (savedState) {
         try {
             state = JSON.parse(savedState);
-            if (state.step > 0) goToStep(state.step);
-            else renderStep(0);
+            goToPage(state.page);
         } catch (e) {
             localStorage.removeItem('gpaState');
-            renderStep(0);
+            goToPage('home');
         }
     } else {
-        renderStep(0);
+        goToPage('home');
     }
 
     // 3. Listeners
@@ -122,84 +146,137 @@ function applyTheme(isDark) {
     if (isDark) {
         document.documentElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        if(moonIcon) {
-            moonIcon.style.opacity = '0';
-            moonIcon.style.transform = 'rotate(-90deg)';
-        }
-        if(sunIcon) {
-            sunIcon.style.opacity = '1';
-            sunIcon.style.transform = 'rotate(0deg)';
-        }
+        if(moonIcon) { moonIcon.style.opacity = '0'; moonIcon.style.transform = 'rotate(-90deg)'; }
+        if(sunIcon) { sunIcon.style.opacity = '1'; sunIcon.style.transform = 'rotate(0deg)'; }
     } else {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        if(sunIcon) {
-            sunIcon.style.opacity = '0';
-            sunIcon.style.transform = 'rotate(90deg)';
-        }
-        if(moonIcon) {
-            moonIcon.style.opacity = '1';
-            moonIcon.style.transform = 'rotate(0deg)';
-        }
+        if(sunIcon) { sunIcon.style.opacity = '0'; sunIcon.style.transform = 'rotate(90deg)'; }
+        if(moonIcon) { moonIcon.style.opacity = '1'; moonIcon.style.transform = 'rotate(0deg)'; }
     }
 }
 
-// --- NAVIGATION & RENDERING ---
-function goToStep(stepIndex) {
-    state.step = stepIndex;
-    saveState();
-    renderStep(stepIndex);
-    updateProgressBar(stepIndex);
+// --- MENU & SIDEBAR ---
+function toggleMenu() {
+    const isOpen = !sidebar.classList.contains('translate-x-full');
     
-    if(backBtn) backBtn.style.display = stepIndex === 0 ? 'none' : 'block';
+    if (isOpen) {
+        // Close
+        sidebar.classList.add('translate-x-full');
+        sidebarOverlay.classList.remove('opacity-100');
+        sidebarOverlay.classList.add('opacity-0');
+        setTimeout(() => sidebarOverlay.classList.add('hidden'), 300);
+    } else {
+        // Open
+        sidebarOverlay.classList.remove('hidden');
+        // small delay to allow transition
+        setTimeout(() => {
+            sidebarOverlay.classList.remove('opacity-0');
+            sidebarOverlay.classList.add('opacity-100');
+            sidebar.classList.remove('translate-x-full');
+        }, 10);
+    }
+}
+
+// --- NAVIGATION & ROUTING ---
+const PAGE_ORDER = ['gpa-intro', 'major', 'grade', 'calc', 'result'];
+
+function goToPage(pageId) {
+    state.page = pageId;
+    saveState();
+    
+    // Update Title & Progress
+    let titleText = 'دستیار تحصیلی من';
+    let progress = 0;
+
+    switch(pageId) {
+        case 'home': 
+            titleText = 'دستیار تحصیلی من'; 
+            progress = 0; 
+            backBtn.style.display = 'none';
+            break;
+        case 'contact':
+            titleText = 'تماس با ما';
+            progress = 100;
+            backBtn.style.display = 'block';
+            break;
+        case 'gpa-intro':
+            titleText = 'محاسبه معدل سوابق';
+            progress = 10;
+            backBtn.style.display = 'block';
+            break;
+        case 'major':
+            titleText = 'انتخاب رشته';
+            progress = 30;
+            backBtn.style.display = 'block';
+            break;
+        case 'grade':
+            titleText = 'انتخاب پایه';
+            progress = 50;
+            backBtn.style.display = 'block';
+            break;
+        case 'calc':
+            titleText = 'ورود نمرات';
+            progress = 80;
+            backBtn.style.display = 'block';
+            break;
+        case 'result':
+            titleText = 'کارنامه نهایی';
+            progress = 100;
+            backBtn.style.display = 'block';
+            break;
+    }
+
+    if(pageTitle) pageTitle.innerText = titleText;
+    if(progressBar) progressBar.style.width = `${progress}%`;
+
+    // Render Content
+    renderTemplate(`step-${pageId}`);
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBack() {
-    if (state.step > 0) {
-        goToStep(state.step - 1);
+    if (state.page === 'home') return;
+    
+    if (state.page === 'contact' || state.page === 'gpa-intro') {
+        goToPage('home');
+        return;
+    }
+
+    const currentIndex = PAGE_ORDER.indexOf(state.page);
+    if (currentIndex > 0) {
+        goToPage(PAGE_ORDER[currentIndex - 1]);
+    } else {
+        goToPage('home');
     }
 }
 
-function updateProgressBar(step) {
-    if(!progressBar) return;
-    const width = (step / 4) * 100;
-    progressBar.style.width = `${width}%`;
-}
-
-function renderStep(index) {
+function renderTemplate(templateId) {
     if(!app) return;
     app.innerHTML = '';
-    let templateId = '';
-    
-    switch(index) {
-        case 0: templateId = 'step-intro'; break;
-        case 1: templateId = 'step-major'; break;
-        case 2: templateId = 'step-grade'; break;
-        case 3: templateId = 'step-calc'; break;
-        case 4: templateId = 'step-result'; break;
-        default: templateId = 'step-intro';
-    }
-
     const template = document.getElementById(templateId);
-    if (!template) return;
-    
+    if (!template) {
+        console.error(`Template ${templateId} not found`);
+        return;
+    }
     const clone = template.content.cloneNode(true);
     app.appendChild(clone);
 
-    if (index === 3) initCalculator();
-    if (index === 4) initResult();
+    // Initialize logic for specific pages
+    if (templateId === 'step-calc') initCalculator();
+    if (templateId === 'step-result') initResult();
 }
 
 // --- LOGIC FUNCTIONS ---
 function selectMajor(major) {
     state.major = major;
-    goToStep(2);
+    goToPage('grade');
 }
 
 function selectGrade(grade) {
     state.grade = grade;
-    goToStep(3);
+    goToPage('calc');
 }
 
 function saveState() {
@@ -214,22 +291,44 @@ function resetInputs() {
     }
 }
 
+// --- GLOBAL EXPORTS FOR HTML ---
+window.toggleMenu = toggleMenu;
+window.goToPage = goToPage;
+window.selectMajor = selectMajor;
+window.selectGrade = selectGrade;
+window.resetInputs = resetInputs;
+window.calculateFinal = calculateFinal;
+window.shareResult = shareResult;
+window.handleInput = function(el, subjectName) {
+    state.scores[subjectName] = el.value;
+    calculateLive();
+}
+window.validateInput = function(el, subjectName) {
+    let val = parseFloat(el.value);
+    if (isNaN(val) || el.value === '') return;
+    if (val < 0) val = 0;
+    if (val > 20) val = 20;
+    val = Math.round(val * 4) / 4; // Round to nearest 0.25
+    el.value = val;
+    state.scores[subjectName] = val;
+    saveState();
+    calculateLive();
+}
+
 // --- CALCULATOR LOGIC ---
 function initCalculator() {
     const container = document.getElementById('inputs-container');
     const title = document.getElementById('calc-title');
     
-    if (!state.major || !state.grade) { goToStep(0); return; }
+    if (!state.major || !state.grade) { goToPage('home'); return; }
 
     const subjects = COEFFICIENTS[state.major][state.grade];
     
     if(title) title.innerText = `نمرات پایه ${state.grade} ${getMajorName(state.major)}`;
     if(container) {
         container.innerHTML = '';
-
         subjects.forEach((sub, idx) => {
             const score = state.scores[sub.name] !== undefined ? state.scores[sub.name] : '';
-            
             const div = document.createElement('div');
             div.className = "glass-panel p-3 rounded-xl flex items-center justify-between gap-3 animate-slide-in";
             div.style.animationDelay = `${idx * 0.05}s`;
@@ -252,40 +351,8 @@ function initCalculator() {
             container.appendChild(div);
         });
     }
-    
     calculateLive();
 }
-
-// توابع گلوبال برای دسترسی از داخل HTML
-window.handleInput = function(el, subjectName) {
-    state.scores[subjectName] = el.value;
-    calculateLive();
-}
-
-window.validateInput = function(el, subjectName) {
-    let val = parseFloat(el.value);
-    if (isNaN(val) || el.value === '') {
-        return; 
-    }
-
-    if (val < 0) val = 0;
-    if (val > 20) val = 20;
-
-    // Round to nearest 0.25
-    val = Math.round(val * 4) / 4;
-
-    el.value = val;
-    state.scores[subjectName] = val;
-    saveState();
-    calculateLive();
-}
-
-window.resetInputs = resetInputs;
-window.calculateFinal = calculateFinal;
-window.selectMajor = selectMajor;
-window.selectGrade = selectGrade;
-window.goToStep = goToStep;
-window.shareResult = shareResult;
 
 function calculateLive() {
     const subjects = COEFFICIENTS[state.major][state.grade];
@@ -295,7 +362,6 @@ function calculateLive() {
     subjects.forEach(sub => {
         let score = parseFloat(state.scores[sub.name]);
         if (isNaN(score)) score = 0; 
-        
         totalWeightedScore += score * sub.coeff;
         totalCoeffs += sub.coeff;
     });
@@ -306,7 +372,7 @@ function calculateLive() {
 }
 
 function calculateFinal() {
-    goToStep(4);
+    goToPage('result');
 }
 
 // --- RESULT LOGIC ---
@@ -323,17 +389,16 @@ function initResult() {
     });
 
     const average = totalCoeffs > 0 ? (totalWeightedScore / totalCoeffs) : 0;
-    const impact = WEIGHTS[state.grade] * 100;
 
     const displayEl = document.getElementById('final-score-display');
     const circle = document.getElementById('score-ring');
     const gradeEl = document.getElementById('res-grade');
-    const weightEl = document.getElementById('res-weight');
+    const majorEl = document.getElementById('res-major');
 
     if(gradeEl) gradeEl.innerText = state.grade === '12' ? 'دوازدهم' : 'یازدهم';
-    if(weightEl) weightEl.innerText = `${impact}%`;
+    if(majorEl) majorEl.innerText = getMajorName(state.major);
     
-    // Reset ring
+    // Animate Ring
     if(circle) {
         const radius = circle.r.baseVal.value;
         const circumference = radius * 2 * Math.PI;
@@ -370,7 +435,10 @@ function getMajorName(key) {
     const map = {
         'math': 'ریاضی فیزیک',
         'experimental': 'علوم تجربی',
-        'humanities': 'علوم انسانی'
+        'humanities': 'علوم انسانی',
+        'maaref': 'علوم و معارف اسلامی',
+        'art': 'هنر',
+        'language': 'زبان‌های خارجی'
     };
     return map[key] || '';
 }
@@ -378,7 +446,7 @@ function getMajorName(key) {
 function shareResult() {
     const displayEl = document.getElementById('final-score-display');
     const score = displayEl ? displayEl.innerText : '0';
-    const text = `معدل کتبی نهایی من: ${score}\nرشته: ${getMajorName(state.major)}\nمحاسبه شده با ماشین حساب معدل ۱۴۰۵`;
+    const text = `معدل کتبی نهایی من: ${score}\nرشته: ${getMajorName(state.major)}\nمحاسبه شده با دستیار تحصیلی من`;
     
     if (navigator.share) {
         navigator.share({
