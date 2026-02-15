@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>محاسبه‌گر معدل امتحان نهایی ۱۴۰۵ | دقیق و آنلاین</title>
-    <meta name="description" content="ابزار رایگان و دقیق محاسبه معدل امتحانات نهایی پایه دوازدهم و یازدهم برای کنکور ۱۴۰۵ با آخرین ضرایب آموزش و پرورش.">
-    <meta name="keywords" content="معدل کنکور, محاسبه معدل نهایی, ضرایب کنکور 1405, تاثیر معدل, ماشین حساب معدل">
-    <meta name="robots" content="index, follow">
+    <title>دستیار تحصیلی من</title>
     <meta name="theme-color" content="#6366f1">
     
     <link rel="stylesheet" href="css/style.css">
-
     <script src="js/tailwind.js"></script> 
     
     <script>
@@ -23,26 +19,54 @@
                     colors: {
                         glass: { 100: 'rgba(255, 255, 255, 0.1)', dark: 'rgba(17, 24, 39, 0.7)' },
                         primary: '#6366f1',
-                        secondary: '#ec4899'
+                        secondary: '#ec4899',
+                        accent: '#8b5cf6'
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300 min-h-screen flex flex-col overflow-x-hidden">
 
     <div class="animated-bg"></div>
 
-    <nav class="fixed top-0 w-full z-50 glass-panel shadow-sm transition-all duration-300">
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden transition-opacity opacity-0" onclick="toggleMenu()"></div>
+
+    <aside id="sidebar" class="fixed top-0 right-0 w-64 h-full bg-white dark:bg-gray-800 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+        <div class="p-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+            <h2 class="font-bold text-xl text-primary">منوی دسترسی</h2>
+            <button onclick="toggleMenu()" class="text-gray-500 hover:text-red-500 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li><button onclick="goToPage('home'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> خانه</button></li>
+                <li><button onclick="goToPage('gpa-intro'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> محاسبه معدل</button></li>
+                <li><button onclick="goToPage('contact'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> تماس با ما</button></li>
+            </ul>
+        </nav>
+        <div class="p-4 text-center text-xs text-gray-400 border-t border-gray-100 dark:border-gray-700">
+            نسخه ۲.۱.۰
+        </div>
+    </aside>
+
+    <nav class="fixed top-0 w-full z-30 glass-panel shadow-sm transition-all duration-300">
         <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div id="back-btn" class="hidden cursor-pointer p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleMenu()" class="p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                
+                <div id="back-btn" class="hidden cursor-pointer p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                 </div>
-                <h1 class="font-bold text-lg tracking-tight">معدل کنکور ۱۴۰۵</h1>
+                <h1 class="font-bold text-lg tracking-tight text-primary truncate" id="page-title">دستیار تحصیلی من</h1>
             </div>
             
             <button id="theme-toggle" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition focus:outline-none relative w-10 h-10 flex items-center justify-center">
@@ -58,64 +82,138 @@
     <main id="app" class="flex-grow pt-20 pb-10 px-4 max-w-md mx-auto w-full relative min-h-[80vh]">
         </main>
 
-    <footer class="text-center py-4 text-xs text-gray-400 dark:text-gray-500 glass-panel mt-auto">
-        <p>طراحی شده برای داوطلبان کنکور ۱۴۰۵ | نسخه ۲.۰</p>
+    <footer class="text-center py-6 text-xs text-gray-500 dark:text-gray-400 glass-panel mt-auto space-y-2">
+        <p>قدرت گرفته از هوش مصنوعی 🤖</p>
+        <p class="text-secondary font-medium">تولید شده با ❤️ برای دانش آموزان ایران زمین</p>
     </footer>
 
+    <template id="step-home">
+        <div class="space-y-6 fade-in pt-4">
+            <div class="text-center space-y-2 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">به دستیار تحصیلی خوش آمدید</h2>
+                <p class="text-sm text-gray-500">ابزارهای مورد نیاز خود را انتخاب کنید</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4">
+                <button onclick="goToPage('gpa-intro')" class="group glass-panel p-6 rounded-2xl shadow-sm hover:shadow-lg transition text-right relative overflow-hidden border-r-4 border-primary w-full">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary/5 to-transparent group-hover:from-primary/10 transition"></div>
+                    <div class="flex justify-between items-center relative z-10">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary transition">محاسبه معدل سوابق تحصیلی</h3>
+                            <p class="text-xs text-gray-500 mt-2 leading-5">محاسبه دقیق معدل نهایی کتبی<br>بر اساس ضرایب جدید ۱۴۰۵</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        </div>
+                    </div>
+                </button>
+
+                <div class="glass-panel p-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-center text-gray-400">
+                    <span class="text-sm">خدمات بیشتر به زودی...</span>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="step-contact">
+        <div class="space-y-6 fade-in pt-4 text-center">
+            <h2 class="text-2xl font-bold">تماس با ما</h2>
+            <div class="w-24 h-24 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-4xl">
+                📬
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-7">
+                نظرات و پیشنهادات شما به ما کمک می‌کند تا این دستیار را هوشمندتر کنیم. از طریق راه‌های زیر با ما در ارتباط باشید.
+            </p>
+            
+            <div class="space-y-4 mt-8">
+                <a href="https://github.com/AhmadZamani031/Moadel-Emtehan-Nahaee" target="_blank" class="flex items-center justify-between glass-panel p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                    <span class="font-bold flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        گیت‌هاب
+                    </span>
+                    <span class="text-xs text-blue-500">مشاهده پروژه</span>
+                </a>
+
+                <a href="mailto:ahmadzamani031@gmail.com" class="flex items-center justify-between glass-panel p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                    <span class="font-bold flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        ایمیل
+                    </span>
+                    <span class="text-xs text-gray-500">ارسال پیام</span>
+                </a>
+            </div>
+        </div>
+    </template>
+
     <template id="step-intro">
-        <div class="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 fade-in">
-            <div class="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl flex items-center justify-center text-white mb-4 rotate-3 hover:rotate-6 transition-transform">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-6 fade-in">
+            <div class="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl shadow-xl flex items-center justify-center text-white mb-2 rotate-3 hover:rotate-6 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
             </div>
-            <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-primary to-secondary">
-                ماشین حساب معدل
+            <h2 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-primary to-secondary">
+                محاسبه معدل سوابق تحصیلی
             </h2>
             <div class="glass-panel p-4 rounded-xl text-sm leading-6 shadow-sm border-r-4 border-yellow-400 text-right">
-                <strong class="block text-yellow-600 dark:text-yellow-400 mb-1">⚠️ راهنمای استفاده:</strong>
-                نمرات خود را وارد کنید تا معدل کتبی دقیق با توجه به ضرایب ۱۴۰۵ محاسبه شود. محاسبات به صورت آفلاین و امن انجام می‌شود.
+                <strong class="block text-yellow-600 dark:text-yellow-400 mb-1">⚠️ راهنما:</strong>
+                رشته و پایه خود را انتخاب کنید تا معدل کتبی دقیق با ضرایب ۱۴۰۵ محاسبه شود.
             </div>
-            <button onclick="goToStep(1)" class="w-full py-4 bg-primary hover:bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/30 font-bold text-lg transition transform active:scale-95">
-                شروع محاسبه
+            <button onclick="goToPage('major')" class="w-full py-4 bg-primary hover:bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/30 font-bold text-lg transition transform active:scale-95">
+                شروع کن
             </button>
         </div>
     </template>
 
     <template id="step-major">
-        <div class="space-y-6 slide-up">
-            <h2 class="text-xl font-bold text-center">رشته تحصیلی خود را انتخاب کنید</h2>
-            <div class="grid grid-cols-1 gap-4">
-                <button onclick="selectMajor('experimental')" class="group relative overflow-hidden glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right border-r-4 border-green-500">
+        <div class="space-y-4 slide-up">
+            <h2 class="text-lg font-bold text-center mb-6">رشته تحصیلی را انتخاب کنید</h2>
+            <div class="grid grid-cols-1 gap-3">
+                <button onclick="selectMajor('experimental')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-green-500">
                     <span class="absolute top-0 left-0 w-full h-full bg-green-500/5 group-hover:bg-green-500/10 transition"></span>
                     <div class="flex justify-between items-center relative z-10">
-                        <div class="flex flex-col">
-                            <span class="text-lg font-bold">علوم تجربی</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">شامل زیست، شیمی، ریاضی...</span>
-                        </div>
+                        <span class="font-bold">علوم تجربی</span>
                         <span class="text-2xl">🧬</span>
                     </div>
                 </button>
                 
-                <button onclick="selectMajor('math')" class="group relative overflow-hidden glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right border-r-4 border-blue-500">
+                <button onclick="selectMajor('math')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-blue-500">
                     <span class="absolute top-0 left-0 w-full h-full bg-blue-500/5 group-hover:bg-blue-500/10 transition"></span>
                     <div class="flex justify-between items-center relative z-10">
-                        <div class="flex flex-col">
-                            <span class="text-lg font-bold">ریاضی و فیزیک</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">شامل حسابان، هندسه، گسسته...</span>
-                        </div>
+                        <span class="font-bold">ریاضی و فیزیک</span>
                         <span class="text-2xl">📐</span>
                     </div>
                 </button>
 
-                <button onclick="selectMajor('humanities')" class="group relative overflow-hidden glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right border-r-4 border-yellow-500">
+                <button onclick="selectMajor('humanities')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-yellow-500">
                     <span class="absolute top-0 left-0 w-full h-full bg-yellow-500/5 group-hover:bg-yellow-500/10 transition"></span>
                     <div class="flex justify-between items-center relative z-10">
-                        <div class="flex flex-col">
-                            <span class="text-lg font-bold">علوم انسانی</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">شامل ادبیات، عربی، فلسفه...</span>
-                        </div>
+                        <span class="font-bold">علوم انسانی</span>
                         <span class="text-2xl">📚</span>
+                    </div>
+                </button>
+
+                <button onclick="selectMajor('maaref')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-teal-500">
+                    <span class="absolute top-0 left-0 w-full h-full bg-teal-500/5 group-hover:bg-teal-500/10 transition"></span>
+                    <div class="flex justify-between items-center relative z-10">
+                        <span class="font-bold">علوم و معارف اسلامی</span>
+                        <span class="text-2xl">🕋</span>
+                    </div>
+                </button>
+
+                <button onclick="selectMajor('art')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-purple-500">
+                    <span class="absolute top-0 left-0 w-full h-full bg-purple-500/5 group-hover:bg-purple-500/10 transition"></span>
+                    <div class="flex justify-between items-center relative z-10">
+                        <span class="font-bold">هنر</span>
+                        <span class="text-2xl">🎨</span>
+                    </div>
+                </button>
+
+                <button onclick="selectMajor('language')" class="group relative overflow-hidden glass-panel p-4 rounded-xl shadow-sm hover:shadow-md transition text-right border-r-4 border-pink-500">
+                    <span class="absolute top-0 left-0 w-full h-full bg-pink-500/5 group-hover:bg-pink-500/10 transition"></span>
+                    <div class="flex justify-between items-center relative z-10">
+                        <span class="font-bold">زبان‌های خارجی</span>
+                        <span class="text-2xl">🗣️</span>
                     </div>
                 </button>
             </div>
@@ -124,18 +222,16 @@
 
     <template id="step-grade">
         <div class="space-y-6 slide-up">
-            <h2 class="text-xl font-bold text-center">پایه تحصیلی را انتخاب کنید</h2>
+            <h2 class="text-lg font-bold text-center">پایه تحصیلی را انتخاب کنید</h2>
             <div class="grid grid-cols-2 gap-4">
                 <button onclick="selectGrade('11')" class="glass-panel p-6 rounded-2xl flex flex-col items-center gap-3 hover:border-primary/50 transition active:scale-95">
                     <span class="text-4xl font-bold text-gray-800 dark:text-white">۱۱</span>
                     <span class="text-sm font-medium">پایه یازدهم</span>
-                    <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full dark:bg-indigo-900 dark:text-indigo-200">تاثیر: ۱۷٪</span>
                 </button>
                 
                 <button onclick="selectGrade('12')" class="glass-panel p-6 rounded-2xl flex flex-col items-center gap-3 hover:border-secondary/50 transition active:scale-95">
                     <span class="text-4xl font-bold text-gray-800 dark:text-white">۱۲</span>
                     <span class="text-sm font-medium">پایه دوازدهم</span>
-                    <span class="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded-full dark:bg-pink-900 dark:text-pink-200">تاثیر: ۶۳٪</span>
                 </button>
             </div>
         </div>
@@ -145,20 +241,20 @@
         <div class="space-y-4 slide-up pb-24">
             <div class="flex justify-between items-end mb-2">
                 <h2 class="text-lg font-bold" id="calc-title">وارد کردن نمرات</h2>
-                <button onclick="resetInputs()" class="text-xs text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded transition">پاک کردن همه</button>
+                <button onclick="resetInputs()" class="text-xs text-red-500 hover:text-red-600 bg-red-50 dark:bg-red-900/30 px-2 py-1 rounded transition">پاک کردن</button>
             </div>
             
             <div id="inputs-container" class="space-y-3">
                 </div>
 
-            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-40">
+            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-30">
                 <div class="max-w-md mx-auto flex justify-between items-center">
                     <div>
-                        <div class="text-xs text-gray-500 mb-1">معدل محاسبه شده</div>
+                        <div class="text-xs text-gray-500 mb-1">معدل تراز شده</div>
                         <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" id="live-score">0.00</div>
                     </div>
                     <button onclick="calculateFinal()" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-lg font-bold shadow-lg text-sm active:scale-95 transition">
-                        مشاهده کارنامه
+                        مشاهده نتیجه
                     </button>
                 </div>
             </div>
@@ -186,8 +282,8 @@
                     <div class="font-bold text-lg" id="res-grade">--</div>
                 </div>
                 <div class="glass-panel p-3 rounded-xl text-center">
-                    <div class="text-xs text-gray-500">تاثیر در کنکور</div>
-                    <div class="font-bold text-lg text-secondary" id="res-weight">--%</div>
+                    <div class="text-xs text-gray-500">رشته</div>
+                    <div class="font-bold text-lg text-primary" id="res-major">--</div>
                 </div>
             </div>
 
@@ -198,8 +294,8 @@
                 اشتراک‌گذاری
             </button>
             
-            <button onclick="goToStep(0); localStorage.removeItem('gpaState'); init();" class="text-sm text-gray-500 underline mt-4 pb-10">
-                شروع مجدد
+            <button onclick="goToPage('home'); localStorage.removeItem('gpaState'); init();" class="text-sm text-gray-500 underline mt-4 pb-10">
+                بازگشت به خانه
             </button>
         </div>
     </template>
