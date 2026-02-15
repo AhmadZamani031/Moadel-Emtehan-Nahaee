@@ -10,10 +10,15 @@ const COEFFICIENTS = {
             { name: 'شیمی ۳', coeff: 10.70 }
         ],
         '11': [
-            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'عربی ۲', coeff: 2.62 },
-            { name: 'دین و زندگی ۲', coeff: 4.78 }, { name: 'زبان انگلیسی ۲', coeff: 3.32 },
-            { name: 'هندسه ۲', coeff: 5.10 }, { name: 'فیزیک ۲', coeff: 6.57 },
-            { name: 'حسابان ۱', coeff: 5.20 }, { name: 'شیمی ۲', coeff: 5.27 }
+            // لیست اصلاح شده طبق کد اولیه شما
+            { name: 'فارسی ۲', coeff: 5.95 }, 
+            { name: 'عربی ۲', coeff: 2.62 }, 
+            { name: 'دین و زندگی ۲', coeff: 4.78 },
+            { name: 'زبان انگلیسی ۲', coeff: 3.32 }, 
+            { name: 'هندسه ۲', coeff: 5.10 }, 
+            { name: 'فیزیک ۲', coeff: 6.57 },
+            { name: 'حسابان ۱', coeff: 5.20 },
+            { name: 'شیمی ۲', coeff: 5.27 }
         ]
     },
     experimental: {
@@ -25,10 +30,15 @@ const COEFFICIENTS = {
             { name: 'فیزیک ۳', coeff: 8.45 }, { name: 'شیمی ۳', coeff: 9.19 }
         ],
         '11': [
-            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'عربی ۲', coeff: 2.62 },
-            { name: 'دین و زندگی ۲', coeff: 4.78 }, { name: 'زبان انگلیسی ۲', coeff: 3.32 },
-            { name: 'زیست شناسی ۲', coeff: 6.39 }, { name: 'شیمی ۲', coeff: 5.27 },
-            { name: 'ریاضی ۲', coeff: 5.00 }, { name: 'فیزیک ۲', coeff: 5.00 }
+            // لیست اصلاح شده طبق کد اولیه شما
+            { name: 'فارسی ۲', coeff: 5.95 }, 
+            { name: 'عربی ۲', coeff: 2.62 }, 
+            { name: 'دین و زندگی ۲', coeff: 4.78 },
+            { name: 'زبان انگلیسی ۲', coeff: 3.32 }, 
+            { name: 'زیست شناسی ۲', coeff: 6.39 }, 
+            { name: 'شیمی ۲', coeff: 5.27 },
+            { name: 'ریاضی ۲', coeff: 5.00 }, 
+            { name: 'فیزیک ۲', coeff: 5.00 }
         ]
     },
     humanities: {
@@ -41,10 +51,15 @@ const COEFFICIENTS = {
             { name: 'فلسفه ۲', coeff: 5.55 }
         ],
         '11': [
-            { name: 'فارسی ۲', coeff: 5.95 }, { name: 'دین و زندگی ۲', coeff: 4.78 },
-            { name: 'زبان انگلیسی ۲', coeff: 3.32 }, { name: 'عربی ۲', coeff: 4.23 },
-            { name: 'تاریخ ۲', coeff: 5.24 }, { name: 'جامعه شناسی ۲', coeff: 4.82 },
-            { name: 'ریاضی و آمار ۲', coeff: 4.00 }, { name: 'علوم و فنون ادبی ۲', coeff: 4.50 }
+            // لیست اصلاح شده طبق کد اولیه شما
+            { name: 'فارسی ۲', coeff: 5.95 }, 
+            { name: 'دین و زندگی ۲', coeff: 4.78 }, 
+            { name: 'زبان انگلیسی ۲', coeff: 3.32 },
+            { name: 'عربی ۲', coeff: 4.23 }, 
+            { name: 'تاریخ ۲', coeff: 5.24 }, 
+            { name: 'جامعه شناسی ۲', coeff: 4.82 },
+            { name: 'ریاضی و آمار ۲', coeff: 4.00 },
+            { name: 'علوم و فنون ادبی ۲', coeff: 4.50 }
         ]
     }
 };
@@ -67,7 +82,7 @@ const themeToggle = document.getElementById('theme-toggle');
 
 // --- INITIALIZATION ---
 function init() {
-    // 1. Theme Initialization (Fixing the Icon Bug)
+    // 1. Theme Initialization
     const storedTheme = localStorage.getItem('theme');
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = storedTheme === 'dark' || (!storedTheme && systemDark);
@@ -90,11 +105,11 @@ function init() {
     }
 
     // 3. Listeners
-    themeToggle.addEventListener('click', toggleTheme);
-    backBtn.addEventListener('click', goBack);
+    if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if(backBtn) backBtn.addEventListener('click', goBack);
 }
 
-// --- THEME LOGIC (FIXED) ---
+// --- THEME LOGIC ---
 function toggleTheme() {
     const isDark = document.documentElement.classList.contains('dark');
     applyTheme(!isDark);
@@ -107,19 +122,25 @@ function applyTheme(isDark) {
     if (isDark) {
         document.documentElement.classList.add('dark');
         localStorage.setItem('theme', 'dark');
-        // Logic for Moon Icon Hidden, Sun Icon Visible
-        moonIcon.style.opacity = '0';
-        moonIcon.style.transform = 'rotate(-90deg)';
-        sunIcon.style.opacity = '1';
-        sunIcon.style.transform = 'rotate(0deg)';
+        if(moonIcon) {
+            moonIcon.style.opacity = '0';
+            moonIcon.style.transform = 'rotate(-90deg)';
+        }
+        if(sunIcon) {
+            sunIcon.style.opacity = '1';
+            sunIcon.style.transform = 'rotate(0deg)';
+        }
     } else {
         document.documentElement.classList.remove('dark');
         localStorage.setItem('theme', 'light');
-        // Logic for Sun Icon Hidden, Moon Icon Visible
-        sunIcon.style.opacity = '0';
-        sunIcon.style.transform = 'rotate(90deg)';
-        moonIcon.style.opacity = '1';
-        moonIcon.style.transform = 'rotate(0deg)';
+        if(sunIcon) {
+            sunIcon.style.opacity = '0';
+            sunIcon.style.transform = 'rotate(90deg)';
+        }
+        if(moonIcon) {
+            moonIcon.style.opacity = '1';
+            moonIcon.style.transform = 'rotate(0deg)';
+        }
     }
 }
 
@@ -130,7 +151,7 @@ function goToStep(stepIndex) {
     renderStep(stepIndex);
     updateProgressBar(stepIndex);
     
-    backBtn.style.display = stepIndex === 0 ? 'none' : 'block';
+    if(backBtn) backBtn.style.display = stepIndex === 0 ? 'none' : 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -141,11 +162,13 @@ function goBack() {
 }
 
 function updateProgressBar(step) {
+    if(!progressBar) return;
     const width = (step / 4) * 100;
     progressBar.style.width = `${width}%`;
 }
 
 function renderStep(index) {
+    if(!app) return;
     app.innerHTML = '';
     let templateId = '';
     
@@ -200,43 +223,46 @@ function initCalculator() {
 
     const subjects = COEFFICIENTS[state.major][state.grade];
     
-    title.innerText = `نمرات پایه ${state.grade} ${getMajorName(state.major)}`;
-    container.innerHTML = '';
+    if(title) title.innerText = `نمرات پایه ${state.grade} ${getMajorName(state.major)}`;
+    if(container) {
+        container.innerHTML = '';
 
-    subjects.forEach((sub, idx) => {
-        const score = state.scores[sub.name] !== undefined ? state.scores[sub.name] : '';
-        
-        const div = document.createElement('div');
-        div.className = "glass-panel p-3 rounded-xl flex items-center justify-between gap-3 animate-slide-in";
-        div.style.animationDelay = `${idx * 0.05}s`;
-        
-        div.innerHTML = `
-            <div class="flex flex-col flex-grow">
-                <label class="font-bold text-sm text-gray-700 dark:text-gray-200">${sub.name}</label>
-                <span class="text-[10px] text-gray-500 bg-gray-100 dark:bg-gray-700 w-fit px-1.5 rounded mt-1">ضریب: ${sub.coeff}</span>
-            </div>
-            <input 
-                type="number" 
-                inputmode="decimal" 
-                placeholder="--" 
-                value="${score}"
-                class="w-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-center font-bold text-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all dir-ltr"
-                oninput="handleInput(this, '${sub.name}')"
-                onblur="validateInput(this, '${sub.name}')"
-            >
-        `;
-        container.appendChild(div);
-    });
+        subjects.forEach((sub, idx) => {
+            const score = state.scores[sub.name] !== undefined ? state.scores[sub.name] : '';
+            
+            const div = document.createElement('div');
+            div.className = "glass-panel p-3 rounded-xl flex items-center justify-between gap-3 animate-slide-in";
+            div.style.animationDelay = `${idx * 0.05}s`;
+            
+            div.innerHTML = `
+                <div class="flex flex-col flex-grow">
+                    <label class="font-bold text-sm text-gray-700 dark:text-gray-200">${sub.name}</label>
+                    <span class="text-[10px] text-gray-500 bg-gray-100 dark:bg-gray-700 w-fit px-1.5 rounded mt-1">ضریب: ${sub.coeff}</span>
+                </div>
+                <input 
+                    type="number" 
+                    inputmode="decimal" 
+                    placeholder="--" 
+                    value="${score}"
+                    class="w-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-center font-bold text-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all dir-ltr"
+                    oninput="window.handleInput(this, '${sub.name}')"
+                    onblur="window.validateInput(this, '${sub.name}')"
+                >
+            `;
+            container.appendChild(div);
+        });
+    }
     
     calculateLive();
 }
 
-function handleInput(el, subjectName) {
+// توابع گلوبال برای دسترسی از داخل HTML
+window.handleInput = function(el, subjectName) {
     state.scores[subjectName] = el.value;
     calculateLive();
 }
 
-function validateInput(el, subjectName) {
+window.validateInput = function(el, subjectName) {
     let val = parseFloat(el.value);
     if (isNaN(val) || el.value === '') {
         return; 
@@ -245,7 +271,7 @@ function validateInput(el, subjectName) {
     if (val < 0) val = 0;
     if (val > 20) val = 20;
 
-    // Round to nearest 0.25 (standard for exams)
+    // Round to nearest 0.25
     val = Math.round(val * 4) / 4;
 
     el.value = val;
@@ -254,6 +280,13 @@ function validateInput(el, subjectName) {
     calculateLive();
 }
 
+window.resetInputs = resetInputs;
+window.calculateFinal = calculateFinal;
+window.selectMajor = selectMajor;
+window.selectGrade = selectGrade;
+window.goToStep = goToStep;
+window.shareResult = shareResult;
+
 function calculateLive() {
     const subjects = COEFFICIENTS[state.major][state.grade];
     let totalWeightedScore = 0;
@@ -261,14 +294,15 @@ function calculateLive() {
 
     subjects.forEach(sub => {
         let score = parseFloat(state.scores[sub.name]);
-        if (isNaN(score)) score = 0; // Treat empty/NaN as 0 for live preview
+        if (isNaN(score)) score = 0; 
         
         totalWeightedScore += score * sub.coeff;
         totalCoeffs += sub.coeff;
     });
 
     const average = totalCoeffs > 0 ? (totalWeightedScore / totalCoeffs) : 0;
-    document.getElementById('live-score').innerText = average.toFixed(2);
+    const liveScoreEl = document.getElementById('live-score');
+    if(liveScoreEl) liveScoreEl.innerText = average.toFixed(2);
 }
 
 function calculateFinal() {
@@ -291,39 +325,45 @@ function initResult() {
     const average = totalCoeffs > 0 ? (totalWeightedScore / totalCoeffs) : 0;
     const impact = WEIGHTS[state.grade] * 100;
 
-    // Animate Number
     const displayEl = document.getElementById('final-score-display');
     const circle = document.getElementById('score-ring');
+    const gradeEl = document.getElementById('res-grade');
+    const weightEl = document.getElementById('res-weight');
+
+    if(gradeEl) gradeEl.innerText = state.grade === '12' ? 'دوازدهم' : 'یازدهم';
+    if(weightEl) weightEl.innerText = `${impact}%`;
     
-    // Reset ring first
-    const radius = circle.r.baseVal.value;
-    const circumference = radius * 2 * Math.PI;
-    circle.style.strokeDashoffset = circumference;
-
-    let start = 0;
-    const duration = 1500;
-    const startTime = performance.now();
-
-    function animate(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+    // Reset ring
+    if(circle) {
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        circle.style.strokeDashoffset = circumference;
+        circle.style.strokeDasharray = circumference;
         
-        // Easing function
-        const ease = 1 - Math.pow(1 - progress, 4);
-        
-        const currentVal = start + (average - start) * ease;
-        displayEl.innerText = currentVal.toFixed(2);
-
-        const offset = circumference - (currentVal / 20) * circumference;
-        circle.style.strokeDashoffset = offset;
-
-        if (progress < 1) requestAnimationFrame(animate);
+        setTimeout(() => {
+             const offset = circumference - (average / 20) * circumference;
+             circle.style.strokeDashoffset = offset;
+        }, 100);
     }
-    
-    requestAnimationFrame(animate);
 
-    document.getElementById('res-grade').innerText = state.grade === '12' ? 'دوازدهم' : 'یازدهم';
-    document.getElementById('res-weight').innerText = `${impact}%`;
+    // Animate Number
+    if(displayEl) {
+        let start = 0;
+        const duration = 1500;
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 4);
+            
+            const currentVal = start + (average - start) * ease;
+            displayEl.innerText = currentVal.toFixed(2);
+
+            if (progress < 1) requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    }
 }
 
 function getMajorName(key) {
@@ -336,7 +376,8 @@ function getMajorName(key) {
 }
 
 function shareResult() {
-    const score = document.getElementById('final-score-display').innerText;
+    const displayEl = document.getElementById('final-score-display');
+    const score = displayEl ? displayEl.innerText : '0';
     const text = `معدل کتبی نهایی من: ${score}\nرشته: ${getMajorName(state.major)}\nمحاسبه شده با ماشین حساب معدل ۱۴۰۵`;
     
     if (navigator.share) {
