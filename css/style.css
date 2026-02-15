@@ -82,4 +82,43 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Theme Toggle Transitions */
 #sun-icon, #moon-icon {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+}
+
+/* ... (کدهای قبلی فونت و ریست که درست بودند) ... */
+
+/* Sidebar Styles */
+#sidebar {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#sidebar.translate-x-full {
+    transform: translateX(100%);
+}
+
+#sidebar.translate-x-0 {
+    transform: translateX(0);
+}
+
+#sidebar-overlay {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+#sidebar-overlay.opacity-0 {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#sidebar-overlay.opacity-100 {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Service Card Hover Effect */
+.glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.dark .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
