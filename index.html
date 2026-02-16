@@ -42,9 +42,46 @@
         </div>
         <nav class="flex-1 overflow-y-auto py-4">
             <ul class="space-y-1">
-                <li><button onclick="goToPage('home'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> خانه</button></li>
-                <li><button onclick="goToPage('gpa-intro'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg> محاسبه معدل</button></li>
-                <li><button onclick="goToPage('contact'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> تماس با ما</button></li>
+                <li>
+                    <button onclick="goToPage('home'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        خانه
+                    </button>
+                </li>
+                <li>
+                    <button onclick="goToPage('gpa-intro'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        محاسبه معدل
+                    </button>
+                </li>
+                <li>
+                    <button onclick="goToPage('timer'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                        </svg>
+                        تایمر مطالعه
+                    </button>
+                </li>
+                <li>
+                    <button onclick="goToPage('contact'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        تماس با ما
+                    </button>
+                </li>
+                <li>
+                    <button onclick="goToPage('about'); toggleMenu()" class="w-full text-right px-6 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                        </svg>
+                        درباره ما
+                    </button>
+                </li>
             </ul>
         </nav>
         <div class="p-4 text-center text-xs text-gray-400 border-t border-gray-100 dark:border-gray-700">
@@ -52,26 +89,25 @@
         </div>
     </aside>
 
-    <nav class="fixed top-0 w-full z-30 glass-panel shadow-sm transition-all duration-300">
-        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <button onclick="toggleMenu()" class="p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                
-                <div id="back-btn" class="hidden cursor-pointer p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                </div>
-                <h1 class="font-bold text-lg tracking-tight text-primary truncate" id="page-title">دستیار تحصیلی من</h1>
-            </div>
+    <nav class="fixed.top-0 w-full z-30 glass-panel shadow-sm transition-all.duration-300">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between relative">
+            <button onclick="toggleMenu()" class="p-1 rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <h1
+                id="page-title"
+                onclick="goToPage('home')"
+                class="absolute left-1/2 -translate-x-1/2 font-bold text-lg tracking-tight text-primary cursor-pointer select-none"
+            >
+                دستیار تحصیلی من
+            </h1>
             
-            <button id="theme-toggle" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition focus:outline-none relative w-10 h-10 flex items-center justify-center">
-                <svg id="sun-icon" class="w-6 h-6 absolute transition-transform duration-300 opacity-0 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <svg id="moon-icon" class="w-6 h-6 absolute transition-transform duration-300 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            <button id="theme-toggle" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition focus:outline-none relative w-10 h-10 flex items-center justify-center z-10">
+                <svg id="sun-icon" class="w-6 h-6 absolute transition-transform.duration-300 opacity-0 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="moon-icon" class="w-6 h-6 absolute transition-transform.duration-300 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             </button>
         </div>
         <div class="w-full bg-gray-200 dark:bg-gray-700 h-1 overflow-hidden rounded-full">
@@ -83,7 +119,6 @@
         </main>
 
     <footer class="text-center py-6 text-xs text-gray-500 dark:text-gray-400 glass-panel mt-auto space-y-2">
-        <p>قدرت گرفته از هوش مصنوعی 🤖</p>
         <p class="text-secondary font-medium">تولید شده با ❤️ برای دانش آموزان ایران زمین</p>
     </footer>
 
@@ -91,7 +126,7 @@
         <div class="space-y-6 fade-in pt-4">
             <div class="text-center space-y-2 mb-8">
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-white">به دستیار تحصیلی خوش آمدید</h2>
-                <p class="text-sm text-gray-500">ابزارهای مورد نیاز خود را انتخاب کنید</p>
+                <p class="text-sm text-gray-500 leading-relaxed">ابزارهای مورد نیاز خود را انتخاب کنید</p>
             </div>
 
             <div class="grid grid-cols-1 gap-4">
@@ -100,7 +135,7 @@
                     <div class="flex justify-between items-center relative z-10">
                         <div>
                             <h3 class="text-lg font-bold text-gray-800 dark:text-white group-hover:text-primary transition">محاسبه معدل سوابق تحصیلی</h3>
-                            <p class="text-xs text-gray-500 mt-2 leading-5">محاسبه دقیق معدل نهایی کتبی<br>بر اساس ضرایب جدید ۱۴۰۵</p>
+                            <p class="text-xs text-gray-500 mt-2 leading-relaxed">محاسبه دقیق معدل نهایی کتبی<br>بر اساس ضرایب جدید ۱۴۰۵</p>
                         </div>
                         <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
@@ -108,69 +143,95 @@
                     </div>
                 </button>
 
-                <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right relative overflow-hidden border-r-4 border-accent/80">
-                    <div class="absolute inset-0 bg-gradient-to-l from-accent/5 via-transparent to-transparent pointer-events-none"></div>
-                    <div class="relative z-10 space-y-3">
-                        <div class="flex items-start justify-between gap-3">
-                            <div>
-                                <h3 class="text-sm font-bold text-gray-800 dark:text-white">تایمر مطالعه هوشمند</h3>
-                                <p class="text-[11px] text-gray-500 mt-1 leading-5">الگوی مطالعه و استراحت خود را بر اساس زمان‌های دلخواه تنظیم کنید.</p>
-                            </div>
-                            <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M12 4a8 8 0 100 16 8 8 0 000-16z" />
-                                </svg>
-                            </div>
+                <button onclick="goToPage('timer')" class="group glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right relative overflow-hidden border-r-4 border-accent/80 w-full">
+                    <div class="absolute inset-0 bg-gradient-to-l from-accent/5 via-transparent to-transparent pointer-events-none group-hover:from-accent/10"></div>
+                    <div class="relative z-10 flex items-center justify-between gap-4">
+                        <div class="space-y-1.5">
+                            <h3 class="text-sm font-bold text-gray-800 dark:text-white group-hover:text-accent transition">تایمر مطالعه هوشمند</h3>
+                            <p class="text-[11px] text-gray-500 leading-relaxed">برنامه‌ریزی مطالعه و استراحت با الگوی پومودورو، مخصوص کنکوری‌ها.</p>
                         </div>
-
-                        <div class="flex flex-col items-center gap-1 mt-1">
-                            <div id="study-timer-display" class="text-3xl font-bold tracking-[0.25em] text-primary dark:text-primary">۲۵:۰۰</div>
-                            <div class="text-[11px] text-gray-500">
-                                حالت:
-                                <span id="study-timer-mode" class="font-bold text-primary">مطالعه</span>
-                            </div>
-                            <div class="w-full h-1.5 bg-gray-200/80 dark:bg-gray-700/80 rounded-full overflow-hidden mt-1">
-                                <div id="study-timer-progress" class="h-full w-0 bg-primary rounded-full transition-all duration-300 ease-out"></div>
-                            </div>
-                            <div class="flex items-center gap-2 mt-2 w-full">
-                                <button onclick="startStudyTimer()" class="flex-1 bg-primary hover:bg-indigo-600 text-white text-xs font-bold rounded-lg py-1.5 transition active:scale-95">شروع</button>
-                                <button onclick="pauseStudyTimer()" class="flex-1 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-bold rounded-lg py-1.5 transition active:scale-95">توقف</button>
-                                <button onclick="resetStudyTimer()" class="flex-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 text-xs font-bold rounded-lg py-1.5 transition active:scale-95">ریست</button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 pt-2 border-t border-gray-200 dark:border-gray-700 text-[11px] space-y-1.5">
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-gray-500">زمان مطالعه (دقیقه)</span>
-                                <input
-                                    id="study-duration-input"
-                                    type="number"
-                                    min="1"
-                                    max="180"
-                                    value="25"
-                                    class="w-16 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
-                                >
-                            </div>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-gray-500">زمان استراحت (دقیقه)</span>
-                                <input
-                                    id="break-duration-input"
-                                    type="number"
-                                    min="1"
-                                    max="120"
-                                    value="5"
-                                    class="w-16 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
-                                >
-                            </div>
+                        <div class="w-12 h-12 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                            </svg>
                         </div>
                     </div>
-                </div>
+                </button>
 
-                <div class="glass-panel p-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-center text-gray-400">
+            <div class="glass-panel p-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-center text-gray-400">
                     <span class="text-sm">خدمات بیشتر به زودی...</span>
                 </div>
             </div>
         </div>
+    </template>
+
+    <template id="step-timer">
+        <section id="page-timer" class="space-y-5 fade-in pt-4">
+            <div class="text-center space-y-2 mb-2">
+                <h2 class="text-xl font-bold text-gray-800 dark:text-white">تایمر مطالعه هوشمند</h2>
+                <p class="text-xs text-gray-500 leading-relaxed">الگوی پومودورو برای مدیریت تمرکز و استراحت</p>
+            </div>
+
+            <div class="glass-panel p-5 rounded-2xl shadow-sm text-right relative overflow-hidden border-r-4 border-accent/80">
+                <div class="absolute inset-0 bg-gradient-to-l from-accent/5 via-transparent to-transparent pointer-events-none"></div>
+                <div class="relative z-10 space-y-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-800 dark:text-white">سشن فعلی</h3>
+                            <p class="text-[11px] text-gray-500 mt-1 leading-relaxed">
+                                زمان‌های مطالعه و استراحت را تنظیم کنید؛ تایمر به صورت خودکار بین آن‌ها جابه‌جا می‌شود.
+                            </p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1 mt-1">
+                        <div id="study-timer-display" class="text-4xl font-bold tracking-[0.25em] text-primary dark:text-primary">۲۵:۰۰</div>
+                        <div class="text-[11px] text-gray-500 mt-1">
+                            حالت:
+                            <span id="study-timer-mode" class="font-bold text-primary">مطالعه</span>
+                        </div>
+                        <div class="w-full h-2 bg-gray-200/80 dark:bg-gray-700/80 rounded-full overflow-hidden mt-2">
+                            <div id="study-timer-progress" class="h-full w-0 bg-primary rounded-full transition-all duration-300 ease-out"></div>
+                        </div>
+                        <div class="flex items-center gap-2 mt-3 w-full">
+                            <button onclick="startStudyTimer()" class="flex-1 bg-primary hover:bg-indigo-600 text-white text-xs font-bold rounded-lg py-2 transition active:scale-95">شروع</button>
+                            <button onclick="pauseStudyTimer()" class="flex-1 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-bold rounded-lg py-2 transition active:scale-95">توقف</button>
+                            <button onclick="resetStudyTimer()" class="flex-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 text-xs font-bold rounded-lg py-2 transition active:scale-95">ریست</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 text-[11px] space-y-2">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-gray-500">زمان مطالعه (دقیقه)</span>
+                            <input
+                                id="study-duration-input"
+                                type="number"
+                                min="1"
+                                max="180"
+                                value="25"
+                                class="w-20 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
+                            >
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-gray-500">زمان استراحت (دقیقه)</span>
+                            <input
+                                id="break-duration-input"
+                                type="number"
+                                min="1"
+                                max="120"
+                                value="5"
+                                class="w-20 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </template>
 
     <template id="step-contact">
@@ -179,7 +240,7 @@
             <div class="w-24 h-24 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-4xl">
                 📬
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-7">
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                 نظرات و پیشنهادات شما به ما کمک می‌کند تا این دستیار را هوشمندتر کنیم. از طریق راه‌های زیر با ما در ارتباط باشید.
             </p>
             
@@ -213,9 +274,11 @@
             <h2 class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-l from-primary to-secondary">
                 محاسبه معدل سوابق تحصیلی
             </h2>
-            <div class="glass-panel p-4 rounded-xl text-sm leading-6 shadow-sm border-r-4 border-yellow-400 text-right">
+            <div class="glass-panel p-4 rounded-xl text-sm leading-relaxed shadow-sm border-r-4 border-yellow-400 text-right">
                 <strong class="block text-yellow-600 dark:text-yellow-400 mb-1">⚠️ راهنما:</strong>
-                رشته و پایه خود را انتخاب کنید تا معدل کتبی دقیق با ضرایب ۱۴۰۵ محاسبه شود.
+                <p class="leading-relaxed">
+                    رشته و پایه خود را انتخاب کنید تا معدل کتبی دقیق با ضرایب ۱۴۰۵ محاسبه شود.
+                </p>
             </div>
             <button onclick="goToPage('major')" class="w-full py-4 bg-primary hover:bg-indigo-600 text-white rounded-xl shadow-lg shadow-indigo-500/30 font-bold text-lg transition transform active:scale-95">
                 شروع کن
@@ -305,18 +368,7 @@
             <div id="inputs-container" class="space-y-3">
                 </div>
 
-            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-30 space-y-3">
-                <div class="max-w-md mx-auto flex justify-between items-center">
-                    <div>
-                        <div class="text-xs text-gray-500 mb-1">معدل تراز شده</div>
-                        <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" id="live-score">0.00</div>
-                    </div>
-                    <button onclick="calculateFinal()" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-lg font-bold shadow-lg text-sm active:scale-95 transition">
-                        مشاهده نتیجه
-                    </button>
-                </div>
-
-                <div class="max-w-md mx-auto glass-panel rounded-2xl px-3 py-2.5 flex items-start gap-3 border border-accent/30">
+            <div class="max-w-md mx-auto glass-panel rounded-2xl px-3 py-2.5 flex items-start gap-3 border border-accent/30">
                     <div class="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.75V4.5m0 15v-2.25m4.5-6H18m-12 0h1.5m9.546 4.546l1.591 1.591M4.863 6.863l1.591 1.591m0 7.092l-1.591 1.591m10.774-10.774l-1.591 1.591M12 9a3 3 0 100 6 3 3 0 000-6z" />
@@ -344,6 +396,17 @@
                         </div>
                         <p id="target-gpa-message" class="text-[10px] text-gray-500 leading-4"></p>
                     </div>
+                </div>
+            
+            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-30 rounded-t-2xl">
+                <div class="max-w-md mx-auto flex justify-between items-center">
+                    <div>
+                        <div class="text-xs text-gray-500 mb-1">معدل تراز شده</div>
+                        <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary" id="live-score">0.00</div>
+                    </div>
+                    <button onclick="calculateFinal()" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-lg font-bold shadow-lg text-sm active:scale-95 transition">
+                        مشاهده نتیجه
+                    </button>
                 </div>
             </div>
         </div>
@@ -381,11 +444,24 @@
                 </svg>
                 اشتراک‌گذاری
             </button>
-            
-            <button onclick="goToPage('home'); localStorage.removeItem('gpaState'); init();" class="text-sm text-gray-500 underline mt-4 pb-10">
-                بازگشت به خانه
-            </button>
         </div>
+    </template>
+
+    <template id="step-about">
+        <section id="page-about" class="space-y-6 fade-in pt-4">
+            <div class="glass-panel p-5 rounded-2xl shadow-sm border-r-4 border-primary text-right space-y-3">
+                <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-1">درباره دستیار تحصیلی من</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    هدف این سایت کمک به دانش‌آموزان است تا معدل نهایی و معدل سوابق تحصیلی خود را با دقت بالا و مطابق آخرین ضرایب رسمی محاسبه کنند؛
+                    تا بتوانند برای انتخاب رشته، برنامه‌ریزی کنکور و تصمیم‌های مهم تحصیلی، تصویر شفاف‌تری از وضعیت خود داشته باشند.
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                    این ابزار با همکاری توسعه‌دهنده و هوش مصنوعی ساخته و به‌روزرسانی شده است تا تجربه دیجیتال آموزشی مدرن‌تری فراهم شود؛
+                    از طراحی رابط کاربری تا منطق محاسبات و امکاناتی مثل هدف‌گذاری معدل و تایمر مطالعه، همگی با تمرکز بر سادگی، دقت و زیبایی پیاده‌سازی شده‌اند.
+                </p>
+            </div>
+
+        </section>
     </template>
 
     <script src="js/script.js"></script>
