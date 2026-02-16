@@ -74,8 +74,8 @@
                 <svg id="moon-icon" class="w-6 h-6 absolute transition-transform duration-300 opacity-100 rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             </button>
         </div>
-        <div class="w-full bg-gray-200 dark:bg-gray-700 h-1">
-            <div id="progress-bar" class="bg-gradient-to-l from-primary to-secondary h-1 w-0 transition-all duration-500 ease-out"></div>
+        <div class="w-full bg-gray-200 dark:bg-gray-700 h-1 overflow-hidden rounded-full">
+            <div id="progress-bar" class="bg-gradient-to-l from-primary to-secondary h-1 w-0 transition-all duration-700 ease-in-out"></div>
         </div>
     </nav>
 
@@ -107,6 +107,64 @@
                         </div>
                     </div>
                 </button>
+
+                <div class="glass-panel p-5 rounded-2xl shadow-sm hover:shadow-md transition text-right relative overflow-hidden border-r-4 border-accent/80">
+                    <div class="absolute inset-0 bg-gradient-to-l from-accent/5 via-transparent to-transparent pointer-events-none"></div>
+                    <div class="relative z-10 space-y-3">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="text-sm font-bold text-gray-800 dark:text-white">تایمر مطالعه هوشمند</h3>
+                                <p class="text-[11px] text-gray-500 mt-1 leading-5">الگوی مطالعه و استراحت خود را بر اساس زمان‌های دلخواه تنظیم کنید.</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l2.5 2.5M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-1 mt-1">
+                            <div id="study-timer-display" class="text-3xl font-bold tracking-[0.25em] text-primary dark:text-primary">۲۵:۰۰</div>
+                            <div class="text-[11px] text-gray-500">
+                                حالت:
+                                <span id="study-timer-mode" class="font-bold text-primary">مطالعه</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-gray-200/80 dark:bg-gray-700/80 rounded-full overflow-hidden mt-1">
+                                <div id="study-timer-progress" class="h-full w-0 bg-primary rounded-full transition-all duration-300 ease-out"></div>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2 w-full">
+                                <button onclick="startStudyTimer()" class="flex-1 bg-primary hover:bg-indigo-600 text-white text-xs font-bold rounded-lg py-1.5 transition active:scale-95">شروع</button>
+                                <button onclick="pauseStudyTimer()" class="flex-1 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-bold rounded-lg py-1.5 transition active:scale-95">توقف</button>
+                                <button onclick="resetStudyTimer()" class="flex-1 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 text-xs font-bold rounded-lg py-1.5 transition active:scale-95">ریست</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-3 pt-2 border-t border-gray-200 dark:border-gray-700 text-[11px] space-y-1.5">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-gray-500">زمان مطالعه (دقیقه)</span>
+                                <input
+                                    id="study-duration-input"
+                                    type="number"
+                                    min="1"
+                                    max="180"
+                                    value="25"
+                                    class="w-16 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
+                                >
+                            </div>
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-gray-500">زمان استراحت (دقیقه)</span>
+                                <input
+                                    id="break-duration-input"
+                                    type="number"
+                                    min="1"
+                                    max="120"
+                                    value="5"
+                                    class="w-16 bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-700 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-1 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="glass-panel p-6 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-center text-gray-400">
                     <span class="text-sm">خدمات بیشتر به زودی...</span>
@@ -247,7 +305,7 @@
             <div id="inputs-container" class="space-y-3">
                 </div>
 
-            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-30">
+            <div class="fixed bottom-0 left-0 right-0 glass-panel border-t border-gray-200 dark:border-gray-700 p-4 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-30 space-y-3">
                 <div class="max-w-md mx-auto flex justify-between items-center">
                     <div>
                         <div class="text-xs text-gray-500 mb-1">معدل تراز شده</div>
@@ -256,6 +314,36 @@
                     <button onclick="calculateFinal()" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-6 py-2 rounded-lg font-bold shadow-lg text-sm active:scale-95 transition">
                         مشاهده نتیجه
                     </button>
+                </div>
+
+                <div class="max-w-md mx-auto glass-panel rounded-2xl px-3 py-2.5 flex items-start gap-3 border border-accent/30">
+                    <div class="w-9 h-9 rounded-full bg-accent/10 text-accent flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.75V4.5m0 15v-2.25m4.5-6H18m-12 0h1.5m9.546 4.546l1.591 1.591M4.863 6.863l1.591 1.591m0 7.092l-1.591 1.591m10.774-10.774l-1.591 1.591M12 9a3 3 0 100 6 3 3 0 000-6z" />
+                        </svg>
+                    </div>
+                    <div class="flex-1 space-y-1">
+                        <div class="text-[11px] text-gray-500">هدف‌گذاری هوشمند معدل</div>
+                        <div class="flex items-center gap-2">
+                            <input
+                                id="target-gpa-input"
+                                type="number"
+                                inputmode="decimal"
+                                step="0.01"
+                                min="0"
+                                max="20"
+                                placeholder="مثلاً ۱۹.۵"
+                                class="w-28 bg-white dark:bg-gray-900/80 border border-accent/40 rounded-lg px-2 py-1 text-xs text-center font-bold focus:ring-2 focus:ring-accent focus:outline-none transition-all dir-ltr"
+                            >
+                            <button
+                                onclick="calculateTargetPath()"
+                                class="flex-1 bg-accent hover:bg-accent/90 text-white text-xs font-bold rounded-lg px-3 py-1.5 shadow-sm active:scale-95 transition"
+                            >
+                                محاسبه مسیر
+                            </button>
+                        </div>
+                        <p id="target-gpa-message" class="text-[10px] text-gray-500 leading-4"></p>
+                    </div>
                 </div>
             </div>
         </div>
