@@ -58,6 +58,77 @@ body {
     transform-origin: 50% 50%;
 }
 
+/* Top Progress Bar Enhancements */
+#progress-bar {
+    position: relative;
+    border-radius: 9999px;
+    background-size: 200% 100%;
+    transition: width 0.6s ease-in-out, box-shadow 0.35s ease-out, background-position 6s linear;
+    overflow: hidden;
+}
+
+/* Animated gradient movement */
+@keyframes progressGradientShift {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+#progress-bar {
+    animation: progressGradientShift 8s linear infinite;
+}
+
+/* Dynamic intensity based on step */
+#progress-bar.progress-stage-low {
+    filter: saturate(0.95) brightness(1);
+}
+
+#progress-bar.progress-stage-mid {
+    filter: saturate(1.05) brightness(1.02);
+}
+
+#progress-bar.progress-stage-high {
+    filter: saturate(1.15) brightness(1.05);
+}
+
+/* Subtle pulse + glow when progress changes */
+@keyframes progressPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.0);
+    }
+    40% {
+        box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.35);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.0);
+    }
+}
+
+#progress-bar.progress-pulse {
+    animation: progressGradientShift 8s linear infinite, progressPulse 0.6s ease-out;
+}
+
+/* Glow at the leading edge */
+#progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%) scale(1);
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.95), transparent);
+    box-shadow: 0 0 14px rgba(236, 72, 153, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+
+#progress-bar.progress-pulse::after {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1.15);
+}
+
 /* Animations */
 .fade-in { animation: fadeIn 0.5s ease-out forwards; }
 .slide-up { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
@@ -77,6 +148,16 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button { 
     -webkit-appearance: none; 
     margin: 0; 
+}
+
+/* Filled grade inputs (دروس شرکت‌کننده در محاسبه) */
+.input-filled {
+    border-color: #22c55e !important; /* green-500 */
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.35);
+}
+.dark .input-filled {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.45);
 }
 
 /* Theme Toggle Transitions */
