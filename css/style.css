@@ -203,3 +203,20 @@ input[type="number"]::-webkit-outer-spin-button {
 .dark .glass-panel {
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
+
+/* Timer page green-focused theme */
+#page-timer .text-primary {
+    color: #16a34a !important; /* green-600 */
+}
+
+#page-timer .bg-primary {
+    background-color: #16a34a !important;
+}
+
+#page-timer .shadow-indigo-500\/30 {
+    box-shadow: 0 10px 25px rgba(22, 163, 74, 0.3) !important;
+}
+
+#page-timer .focus\:ring-primary:focus {
+    --tw-ring-color: #16a34a;
+}
