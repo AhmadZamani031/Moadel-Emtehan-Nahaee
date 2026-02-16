@@ -119,16 +119,29 @@ function init() {
     if (savedState) {
         try {
             state = JSON.parse(savedState);
-            goToPage(state.page);
         } catch (e) {
             localStorage.removeItem('gpaState');
-            goToPage('home');
+            state.page = 'home';
         }
-    } else {
-        goToPage('home');
     }
 
-    // 3. Listeners
+    // 3. Determine start page: prefer hash in URL, then saved state, then home
+    let startPage = state.page || 'home';
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ['home', 'contact', 'gpa-intro', 'major', 'grade', 'calc', 'result'].includes(hash)) {
+        startPage = hash;
+    }
+
+    // 4. Replace initial history entry so popstate has valid state
+    const initialHistoryState = { page: startPage, major: state.major, grade: state.grade };
+    window.history.replaceState(initialHistoryState, '', `#${startPage}`);
+
+    // 5. Navigate without pushing a new history entry
+    isPopstateNavigation = true;
+    goToPage(startPage);
+    isPopstateNavigation = false;
+
+    // 6. Listeners
     if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
     if(backBtn) backBtn.addEventListener('click', goBack);
 }
@@ -181,18 +194,27 @@ function toggleMenu() {
 // --- NAVIGATION & ROUTING ---
 const PAGE_ORDER = ['gpa-intro', 'major', 'grade', 'calc', 'result'];
 
+// Flag to prevent pushing history entries during popstate handling
+let isPopstateNavigation = false;
+
 function goToPage(pageId) {
     state.page = pageId;
     saveState();
-    
+
+    // Push browser history entry (skip during popstate or initial load)
+    if (!isPopstateNavigation) {
+        const historyState = { page: pageId, major: state.major, grade: state.grade };
+        window.history.pushState(historyState, '', `#${pageId}`);
+    }
+
     // Update Title & Progress
     let titleText = 'دستیار تحصیلی من';
     let progress = 0;
 
     switch(pageId) {
-        case 'home': 
-            titleText = 'دستیار تحصیلی من'; 
-            progress = 0; 
+        case 'home':
+            titleText = 'دستیار تحصیلی من';
+            progress = 0;
             backBtn.style.display = 'none';
             break;
         case 'contact':
@@ -232,13 +254,13 @@ function goToPage(pageId) {
 
     // Render Content
     renderTemplate(`step-${pageId}`);
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBack() {
     if (state.page === 'home') return;
-    
+
     if (state.page === 'contact' || state.page === 'gpa-intro') {
         goToPage('home');
         return;
@@ -251,6 +273,24 @@ function goBack() {
         goToPage('home');
     }
 }
+
+// --- BROWSER BACK/FORWARD SUPPORT ---
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page) {
+        // Restore major/grade from history state so calc/result pages work
+        if (event.state.major !== undefined) state.major = event.state.major;
+        if (event.state.grade !== undefined) state.grade = event.state.grade;
+
+        isPopstateNavigation = true;
+        goToPage(event.state.page);
+        isPopstateNavigation = false;
+    } else {
+        // No state (initial entry) — go home
+        isPopstateNavigation = true;
+        goToPage('home');
+        isPopstateNavigation = false;
+    }
+});
 
 function renderTemplate(templateId) {
     if(!app) return;
