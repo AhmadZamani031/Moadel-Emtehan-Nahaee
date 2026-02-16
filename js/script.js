@@ -97,6 +97,15 @@ let state = {
     scores: {}
 };
 
+// --- HELPERS ---
+// تبدیل اعداد انگلیسی به ارقام فارسی فقط برای نمایش در رابط کاربری
+function toPersianDigits(n) {
+    if (n === null || n === undefined) return '';
+    const str = n.toString();
+    const persianMap = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    return str.replace(/\d/g, d => persianMap[d]);
+}
+
 // --- DOM ELEMENTS ---
 const app = document.getElementById('app');
 const backBtn = document.getElementById('back-btn');
@@ -192,10 +201,51 @@ function toggleMenu() {
 }
 
 // --- NAVIGATION & ROUTING ---
-const PAGE_ORDER = ['gpa-intro', 'major', 'grade', 'calc', 'result'];
+// ترتیب منطقی صفحات برای محاسبه قدم‌به‌قدم نوار پیشرفت
+// (فلو اصلی محاسبه معدل) — صفحه contact به صورت ویژه ۱۰۰٪ در نظر گرفته می‌شود
+const PAGE_ORDER = ['home', 'gpa-intro', 'major', 'grade', 'calc', 'result'];
 
 // Flag to prevent pushing history entries during popstate handling
 let isPopstateNavigation = false;
+
+// محاسبه و به‌روزرسانی نوار پیشرفت بر اساس مرحله فعلی
+function updateProgressBar(pageId) {
+    if (!progressBar) return;
+
+    let progress = 0;
+
+    const index = PAGE_ORDER.indexOf(pageId);
+    if (index !== -1 && PAGE_ORDER.length > 1) {
+        progress = (index / (PAGE_ORDER.length - 1)) * 100;
+    }
+
+    // صفحه تماس همیشه به عنوان انتهای مسیر (۱۰۰٪) در نظر گرفته می‌شود
+    if (pageId === 'contact') {
+        progress = 100;
+    }
+
+    // اطمینان از مقادیر معتبر
+    progress = Math.max(0, Math.min(progress, 100));
+
+    // به‌روزرسانی شدت رنگ بر اساس مرحله
+    progressBar.classList.remove('progress-stage-low', 'progress-stage-mid', 'progress-stage-high');
+    if (progress === 0) {
+        // بدون کلاس خاص در حالت ابتدایی
+    } else if (progress < 34) {
+        progressBar.classList.add('progress-stage-low');
+    } else if (progress < 67) {
+        progressBar.classList.add('progress-stage-mid');
+    } else {
+        progressBar.classList.add('progress-stage-high');
+    }
+
+    // ریست و اعمال کلاس Pulse برای انیمیشن ظریف هنگام تغییر
+    progressBar.classList.remove('progress-pulse');
+    // Force reflow to restart animation each time
+    void progressBar.offsetWidth;
+    progressBar.style.width = `${progress}%`;
+    progressBar.classList.add('progress-pulse');
+}
 
 function goToPage(pageId) {
     state.page = pageId;
@@ -209,48 +259,40 @@ function goToPage(pageId) {
 
     // Update Title & Progress
     let titleText = 'دستیار تحصیلی من';
-    let progress = 0;
 
     switch(pageId) {
         case 'home':
             titleText = 'دستیار تحصیلی من';
-            progress = 0;
             backBtn.style.display = 'none';
             break;
         case 'contact':
             titleText = 'تماس با ما';
-            progress = 100;
             backBtn.style.display = 'block';
             break;
         case 'gpa-intro':
             titleText = 'محاسبه معدل سوابق';
-            progress = 10;
             backBtn.style.display = 'block';
             break;
         case 'major':
             titleText = 'انتخاب رشته';
-            progress = 30;
             backBtn.style.display = 'block';
             break;
         case 'grade':
             titleText = 'انتخاب پایه';
-            progress = 50;
             backBtn.style.display = 'block';
             break;
         case 'calc':
             titleText = 'ورود نمرات';
-            progress = 80;
             backBtn.style.display = 'block';
             break;
         case 'result':
             titleText = 'کارنامه نهایی';
-            progress = 100;
             backBtn.style.display = 'block';
             break;
     }
 
     if(pageTitle) pageTitle.innerText = titleText;
-    if(progressBar) progressBar.style.width = `${progress}%`;
+    updateProgressBar(pageId);
 
     // Render Content
     renderTemplate(`step-${pageId}`);
@@ -306,6 +348,7 @@ function renderTemplate(templateId) {
     // Initialize logic for specific pages
     if (templateId === 'step-calc') initCalculator();
     if (templateId === 'step-result') initResult();
+    if (templateId === 'step-home') initHomeTimer();
 }
 
 // --- LOGIC FUNCTIONS ---
@@ -339,8 +382,24 @@ window.selectGrade = selectGrade;
 window.resetInputs = resetInputs;
 window.calculateFinal = calculateFinal;
 window.shareResult = shareResult;
+window.calculateTargetPath = calculateTargetPath;
+window.startStudyTimer = startStudyTimer;
+window.pauseStudyTimer = pauseStudyTimer;
+window.resetStudyTimer = resetStudyTimer;
+// کمک برای متمایز کردن فیلدهایی که در محاسبه شرکت می‌کنند
+function updateInputFilledState(el) {
+    const raw = el.value;
+    const val = parseFloat(raw);
+    if (!isNaN(val) && raw !== '' && val >= 0 && val <= 20) {
+        el.classList.add('input-filled');
+    } else {
+        el.classList.remove('input-filled');
+    }
+}
+
 window.handleInput = function(el, subjectName) {
     state.scores[subjectName] = el.value;
+    updateInputFilledState(el);
     calculateLive();
 }
 window.validateInput = function(el, subjectName) {
@@ -352,6 +411,7 @@ window.validateInput = function(el, subjectName) {
     el.value = val;
     state.scores[subjectName] = val;
     saveState();
+    updateInputFilledState(el);
     calculateLive();
 }
 
@@ -376,19 +436,24 @@ function initCalculator() {
             div.innerHTML = `
                 <div class="flex flex-col flex-grow">
                     <label class="font-bold text-sm text-gray-700 dark:text-gray-200">${sub.name}</label>
-                    <span class="text-[10px] text-gray-500 bg-gray-100 dark:bg-gray-700 w-fit px-1.5 rounded mt-1">ضریب: ${sub.coeff}</span>
+                    <span class="text-[10px] text-gray-500 bg-gray-100 dark:bg-gray-700 w-fit px-1.5 rounded mt-1">ضریب: ${toPersianDigits(sub.coeff)}</span>
                 </div>
                 <input 
                     type="number" 
                     inputmode="decimal" 
                     placeholder="--" 
                     value="${score}"
-                    class="w-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-center font-bold text-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all dir-ltr"
+                    class="w-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-2 text-center font-bold text-lg focus:ring-2 focus:ring-primary focus:outline-none transition-all dir-ltr persian-number-input"
                     oninput="window.handleInput(this, '${sub.name}')"
                     onblur="window.validateInput(this, '${sub.name}')"
                 >
             `;
             container.appendChild(div);
+
+            const input = div.querySelector('input');
+            if (input) {
+                updateInputFilledState(input);
+            }
         });
     }
     calculateLive();
@@ -400,19 +465,296 @@ function calculateLive() {
     let totalCoeffs = 0;
 
     subjects.forEach(sub => {
-        let score = parseFloat(state.scores[sub.name]);
-        if (isNaN(score)) score = 0; 
-        totalWeightedScore += score * sub.coeff;
-        totalCoeffs += sub.coeff;
+        const raw = state.scores[sub.name];
+        let score = parseFloat(raw);
+        // فقط دروسی که مقدار معتبر بین ۰ تا ۲۰ دارند در محاسبه شرکت می‌کنند
+        if (!isNaN(score) && raw !== '' && score >= 0 && score <= 20) {
+            totalWeightedScore += score * sub.coeff;
+            totalCoeffs += sub.coeff;
+        }
     });
 
-    const average = totalCoeffs > 0 ? (totalWeightedScore / totalCoeffs) : 0;
     const liveScoreEl = document.getElementById('live-score');
-    if(liveScoreEl) liveScoreEl.innerText = average.toFixed(2);
+    if (totalCoeffs === 0) {
+        if (liveScoreEl) liveScoreEl.innerText = '--';
+        return;
+    }
+
+    const average = totalWeightedScore / totalCoeffs;
+    if(liveScoreEl) liveScoreEl.innerText = toPersianDigits(average.toFixed(2));
+}
+
+// --- STUDY TIMER LOGIC ---
+let timerMode = 'study';
+let timerIntervalId = null;
+let timerTotalSeconds = 0;
+let timerRemainingSeconds = 0;
+
+function getTimerDurationsFromInputs() {
+    const studyInput = document.getElementById('study-duration-input');
+    const breakInput = document.getElementById('break-duration-input');
+
+    let studyMinutes = studyInput ? parseInt(studyInput.value, 10) : NaN;
+    let breakMinutes = breakInput ? parseInt(breakInput.value, 10) : NaN;
+
+    if (isNaN(studyMinutes) || studyMinutes <= 0) studyMinutes = 25;
+    if (isNaN(breakMinutes) || breakMinutes <= 0) breakMinutes = 5;
+
+    if (studyInput) studyInput.value = studyMinutes;
+    if (breakInput) breakInput.value = breakMinutes;
+
+    return { studyMinutes, breakMinutes };
+}
+
+function setTimerForCurrentMode(resetRemaining = true) {
+    const { studyMinutes, breakMinutes } = getTimerDurationsFromInputs();
+    const minutes = timerMode === 'break' ? breakMinutes : studyMinutes;
+    timerTotalSeconds = Math.max(1, minutes * 60);
+
+    if (resetRemaining || timerRemainingSeconds <= 0 || timerRemainingSeconds > timerTotalSeconds) {
+        timerRemainingSeconds = timerTotalSeconds;
+    }
+}
+
+function updateTimerUI() {
+    const displayEl = document.getElementById('study-timer-display');
+    const modeEl = document.getElementById('study-timer-mode');
+    const progressEl = document.getElementById('study-timer-progress');
+
+    if (!displayEl || !modeEl || !progressEl) {
+        if (timerIntervalId) {
+            clearInterval(timerIntervalId);
+            timerIntervalId = null;
+        }
+        return;
+    }
+
+    const remaining = Math.max(0, timerRemainingSeconds);
+    const total = Math.max(1, timerTotalSeconds);
+
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+    const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    displayEl.textContent = toPersianDigits(timeStr);
+
+    modeEl.textContent = timerMode === 'break' ? 'استراحت' : 'مطالعه';
+    modeEl.classList.remove('text-primary', 'text-green-500');
+    modeEl.classList.add(timerMode === 'break' ? 'text-green-500' : 'text-primary');
+
+    const percent = Math.max(0, Math.min(100, (remaining / total) * 100));
+    progressEl.style.width = `${percent}%`;
+    progressEl.classList.remove('bg-primary', 'bg-green-500');
+    progressEl.classList.add(timerMode === 'break' ? 'bg-green-500' : 'bg-primary');
+}
+
+function playTimerBeep() {
+    try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 880;
+        gain.gain.value = 0.15;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => {
+            osc.stop();
+            ctx.close();
+        }, 300);
+    } catch (e) {
+        // ignore audio errors
+    }
+}
+
+function switchTimerMode() {
+    const { studyMinutes, breakMinutes } = getTimerDurationsFromInputs();
+    timerMode = (timerMode === 'study') ? 'break' : 'study';
+    const minutes = timerMode === 'break' ? breakMinutes : studyMinutes;
+    timerTotalSeconds = Math.max(1, minutes * 60);
+    timerRemainingSeconds = timerTotalSeconds;
+}
+
+function startStudyTimer() {
+    const displayEl = document.getElementById('study-timer-display');
+    if (!displayEl) return;
+
+    if (!timerMode) timerMode = 'study';
+    setTimerForCurrentMode(timerRemainingSeconds <= 0);
+    updateTimerUI();
+
+    if (timerIntervalId) return;
+
+    timerIntervalId = setInterval(() => {
+        timerRemainingSeconds -= 1;
+        if (timerRemainingSeconds <= 0) {
+            playTimerBeep();
+            switchTimerMode();
+        }
+        updateTimerUI();
+    }, 1000);
+}
+
+function pauseStudyTimer() {
+    if (timerIntervalId) {
+        clearInterval(timerIntervalId);
+        timerIntervalId = null;
+    }
+}
+
+function resetStudyTimer() {
+    pauseStudyTimer();
+    timerMode = 'study';
+    setTimerForCurrentMode(true);
+    updateTimerUI();
+}
+
+function initHomeTimer() {
+    const displayEl = document.getElementById('study-timer-display');
+    if (!displayEl) return;
+    timerMode = 'study';
+    setTimerForCurrentMode(true);
+    updateTimerUI();
+}
+
+// --- SMART TARGETING LOGIC ---
+function calculateTargetPath() {
+    const inputEl = document.getElementById('target-gpa-input');
+    const msgEl = document.getElementById('target-gpa-message');
+    if (!inputEl || !msgEl) return;
+
+    let rawTarget = inputEl.value;
+    let target = parseFloat(rawTarget);
+
+    msgEl.classList.remove('text-red-500', 'text-green-600', 'text-accent');
+
+    if (isNaN(target)) {
+        msgEl.textContent = 'لطفاً معدل هدف خود را به صورت عددی بین ۰ تا ۲۰ وارد کنید.';
+        msgEl.classList.add('text-red-500');
+        return;
+    }
+
+    if (target < 0) target = 0;
+    if (target > 20) target = 20;
+
+    if (!state.major || !state.grade) {
+        msgEl.textContent = 'لطفاً ابتدا رشته و پایه تحصیلی خود را انتخاب کنید.';
+        msgEl.classList.add('text-red-500');
+        return;
+    }
+
+    const subjects = COEFFICIENTS[state.major] && COEFFICIENTS[state.major][state.grade];
+    if (!subjects) {
+        msgEl.textContent = 'اطلاعات ضرایب برای این رشته/پایه در دسترس نیست.';
+        msgEl.classList.add('text-red-500');
+        return;
+    }
+
+    let totalCoeffsAll = 0;
+    let totalWeightedFilled = 0;
+    let totalCoeffsFilled = 0;
+
+    subjects.forEach(sub => {
+        const coeff = sub.coeff;
+        totalCoeffsAll += coeff;
+
+        const raw = state.scores[sub.name];
+        const score = parseFloat(raw);
+        if (!isNaN(score) && raw !== '' && score >= 0 && score <= 20) {
+            totalWeightedFilled += score * coeff;
+            totalCoeffsFilled += coeff;
+        }
+    });
+
+    if (totalCoeffsAll === 0) {
+        msgEl.textContent = 'ضرایب این رشته/پایه به درستی تنظیم نشده‌اند.';
+        msgEl.classList.add('text-red-500');
+        return;
+    }
+
+    const remainingCoeffs = totalCoeffsAll - totalCoeffsFilled;
+    const targetStr = toPersianDigits(target.toFixed(2));
+
+    // اگر هیچ درس باقیمانده‌ای برای بهبود نمانده باشد
+    if (remainingCoeffs <= 0) {
+        const currentAvg = totalWeightedFilled / totalCoeffsAll;
+        const currentStr = toPersianDigits(currentAvg.toFixed(2));
+
+        if (currentAvg + 1e-6 >= target) {
+            msgEl.textContent = `شما هم‌اکنون به معدل هدف ${targetStr} رسیده‌اید. معدل فعلی شما: ${currentStr} است.`;
+            msgEl.classList.add('text-green-600');
+        } else {
+            msgEl.textContent = `همه نمرات وارد شده‌اند و امکان تغییر معدل وجود ندارد. معدل فعلی شما: ${currentStr} است.`;
+            msgEl.classList.add('text-red-500');
+        }
+        return;
+    }
+
+    // فرمول اصلی هدف‌گذاری:
+    // (معدل هدف × مجموع کل ضرایب) - (مجموع نمره*ضریب دروس وارد شده) تقسیم بر (مجموع ضرایب دروس باقی‌مانده)
+    const requiredAvg = (target * totalCoeffsAll - totalWeightedFilled) / remainingCoeffs;
+
+    // حداکثر معدل ممکن با فرض گرفتن ۲۰ در دروس باقیمانده
+    const maxPossibleAvg = (totalWeightedFilled + remainingCoeffs * 20) / totalCoeffsAll;
+
+    if (requiredAvg > 20 + 1e-6) {
+        const maxStr = toPersianDigits(maxPossibleAvg.toFixed(2));
+        msgEl.textContent = `متأسفانه با نمرات فعلی، رسیدن به این هدف ممکن نیست. حداکثر معدل ممکن برای شما: ${maxStr} است.`;
+        msgEl.classList.add('text-red-500');
+        return;
+    }
+
+    if (requiredAvg < 0 - 1e-6) {
+        msgEl.textContent = 'هدف شما در دسترس است! حتی با نمره صفر در دروس باقی‌مانده هم به این معدل می‌رسید.';
+        msgEl.classList.add('text-green-600');
+        return;
+    }
+
+    const clampedRequired = Math.max(0, Math.min(20, requiredAvg));
+    const requiredStr = toPersianDigits(clampedRequired.toFixed(2));
+    msgEl.textContent = `شما برای رسیدن به معدل ${targetStr}، در دروس باقی‌مانده به میانگین نمره ${requiredStr} نیاز دارید.`;
+    msgEl.classList.add('text-accent');
 }
 
 function calculateFinal() {
+    // هشدار ملایم در صورت وجود فیلد خالی
+    if (state.major && state.grade) {
+        const subjects = COEFFICIENTS[state.major][state.grade];
+        let hasEmpty = false;
+        subjects.forEach(sub => {
+            const raw = state.scores[sub.name];
+            const score = parseFloat(raw);
+            if (raw === undefined || raw === '' || isNaN(score)) {
+                hasEmpty = true;
+            }
+        });
+        if (hasEmpty) {
+            showToast('محاسبه بر اساس دروس وارد شده انجام شد. برای دقت کامل، همه نمرات را وارد کنید.');
+        }
+    }
+
     goToPage('result');
+}
+
+// نمایش Toast ساده و ملایم در پایین صفحه
+function showToast(message) {
+    let toast = document.getElementById('app-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'app-toast';
+        toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-4 py-2 rounded-full text-xs shadow-lg z-50 opacity-0 transition-opacity duration-300';
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.classList.remove('opacity-0');
+
+    clearTimeout(showToast._timeoutId);
+    showToast._timeoutId = setTimeout(() => {
+        toast.classList.add('opacity-0');
+    }, 3500);
 }
 
 // --- RESULT LOGIC ---
@@ -422,10 +764,13 @@ function initResult() {
     let totalCoeffs = 0;
 
     subjects.forEach(sub => {
-        let score = parseFloat(state.scores[sub.name]);
-        if (isNaN(score)) score = 0;
-        totalWeightedScore += score * sub.coeff;
-        totalCoeffs += sub.coeff;
+        const raw = state.scores[sub.name];
+        let score = parseFloat(raw);
+        // فقط دروسی که مقدار معتبر بین ۰ تا ۲۰ دارند در محاسبه شرکت می‌کنند
+        if (!isNaN(score) && raw !== '' && score >= 0 && score <= 20) {
+            totalWeightedScore += score * sub.coeff;
+            totalCoeffs += sub.coeff;
+        }
     });
 
     const average = totalCoeffs > 0 ? (totalWeightedScore / totalCoeffs) : 0;
@@ -463,7 +808,7 @@ function initResult() {
             const ease = 1 - Math.pow(1 - progress, 4);
             
             const currentVal = start + (average - start) * ease;
-            displayEl.innerText = currentVal.toFixed(2);
+            displayEl.innerText = toPersianDigits(currentVal.toFixed(2));
 
             if (progress < 1) requestAnimationFrame(animate);
         }
@@ -486,7 +831,7 @@ function getMajorName(key) {
 function shareResult() {
     const displayEl = document.getElementById('final-score-display');
     const score = displayEl ? displayEl.innerText : '0';
-    const text = `معدل کتبی نهایی من: ${score}\nرشته: ${getMajorName(state.major)}\nمحاسبه شده با دستیار تحصیلی من`;
+    const text = toPersianDigits(`معدل کتبی نهایی من: ${score}\nرشته: ${getMajorName(state.major)}\nمحاسبه شده با دستیار تحصیلی من`);
     
     if (navigator.share) {
         navigator.share({
