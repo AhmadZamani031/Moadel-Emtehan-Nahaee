@@ -137,7 +137,7 @@ function init() {
     // 3. Determine start page: prefer hash in URL, then saved state, then home
     let startPage = state.page || 'home';
     const hash = window.location.hash.replace('#', '');
-    if (hash && ['home', 'contact', 'gpa-intro', 'major', 'grade', 'calc', 'result'].includes(hash)) {
+    if (hash && ['home', 'contact', 'gpa-intro', 'major', 'grade', 'calc', 'result', 'timer', 'about'].includes(hash)) {
         startPage = hash;
     }
 
@@ -152,7 +152,6 @@ function init() {
 
     // 6. Listeners
     if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if(backBtn) backBtn.addEventListener('click', goBack);
 }
 
 // --- THEME LOGIC ---
@@ -257,63 +256,13 @@ function goToPage(pageId) {
         window.history.pushState(historyState, '', `#${pageId}`);
     }
 
-    // Update Title & Progress
-    let titleText = 'دستیار تحصیلی من';
-
-    switch(pageId) {
-        case 'home':
-            titleText = 'دستیار تحصیلی من';
-            backBtn.style.display = 'none';
-            break;
-        case 'contact':
-            titleText = 'تماس با ما';
-            backBtn.style.display = 'block';
-            break;
-        case 'gpa-intro':
-            titleText = 'محاسبه معدل سوابق';
-            backBtn.style.display = 'block';
-            break;
-        case 'major':
-            titleText = 'انتخاب رشته';
-            backBtn.style.display = 'block';
-            break;
-        case 'grade':
-            titleText = 'انتخاب پایه';
-            backBtn.style.display = 'block';
-            break;
-        case 'calc':
-            titleText = 'ورود نمرات';
-            backBtn.style.display = 'block';
-            break;
-        case 'result':
-            titleText = 'کارنامه نهایی';
-            backBtn.style.display = 'block';
-            break;
-    }
-
-    if(pageTitle) pageTitle.innerText = titleText;
+    // Update Progress Bar
     updateProgressBar(pageId);
 
     // Render Content
     renderTemplate(`step-${pageId}`);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function goBack() {
-    if (state.page === 'home') return;
-
-    if (state.page === 'contact' || state.page === 'gpa-intro') {
-        goToPage('home');
-        return;
-    }
-
-    const currentIndex = PAGE_ORDER.indexOf(state.page);
-    if (currentIndex > 0) {
-        goToPage(PAGE_ORDER[currentIndex - 1]);
-    } else {
-        goToPage('home');
-    }
 }
 
 // --- BROWSER BACK/FORWARD SUPPORT ---
@@ -348,7 +297,7 @@ function renderTemplate(templateId) {
     // Initialize logic for specific pages
     if (templateId === 'step-calc') initCalculator();
     if (templateId === 'step-result') initResult();
-    if (templateId === 'step-home') initHomeTimer();
+    if (templateId === 'step-timer') initHomeTimer();
 }
 
 // --- LOGIC FUNCTIONS ---
